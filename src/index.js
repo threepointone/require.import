@@ -18,7 +18,8 @@ module.exports = function({ types }){
               done(undefined, __webpack_require__(id)) : 
               fn().then(M => done(undefined, M), done)
             }(require.resolveWeak('${nameNode.value}'), 
-              () => require.ensure([], require => require('${nameNode.value}') ${chunkName ? `, ${toString(src, chunkName)}` : ''}),
+              () => require.ensure([], require => require('${nameNode.value}') 
+              ${chunkName ? `, ${toString(src, chunkName)}` : ''}),
               ${toString(src, callback)}))`
 
           path.replaceWith(babylon.parse(replSrc, {
