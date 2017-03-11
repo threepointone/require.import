@@ -29,3 +29,9 @@ you need to make sure that you insert content into your html in the following or
 - main bundle 
 - chunks required for the given html (use predictable chunk names to make this easier)
 - a snippet to start the whole app
+
+
+todo 
+--- 
+
+- serverside polyfill
