@@ -1,7 +1,8 @@
 require.import()
 ---
 
-add `require.import` to your list of babel plugins.
+- add `require.import` to your list of babel plugins.
+- when using on server side code, pass `{ server: true }` as an option
 
 usage 
 ---
@@ -31,7 +32,3 @@ you need to make sure that you insert content into your html in the following or
 - a snippet to start the whole app
 
 
-todo 
---- 
-
-- non-webpack serverside polyfill 

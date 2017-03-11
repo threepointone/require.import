@@ -7,20 +7,22 @@ function toString(src, node){
 module.exports = function({ types }){
   return {
     visitor: {
-      CallExpression: (path) => {
+      CallExpression: (path, state) => {
         let src = path.hub.file.code;
         let { callee } = path.node
         if(callee.type === 'MemberExpression' && toString(src, callee) === 'require.import'){
           let [nameNode, callback, chunkName] = path.node.arguments
           
-          let replSrc = `(function(id, fn, done){
-            __webpack_modules__[id] ? 
-              done(undefined, __webpack_require__(id)) : 
-              fn().then(M => done(undefined, M), done)
-            }(require.resolveWeak('${nameNode.value}'), 
-              () => require.ensure([], require => require('${nameNode.value}') 
-                ${chunkName ? `, ${toString(src, chunkName)}` : ''}),
-              ${toString(src, callback)}))`
+          let replSrc = state.opts.server ? 
+            `(${toString(src, callback)})(undefined, require('${nameNode.value}'))` :
+            `(function(id, fn, done){
+              __webpack_modules__[id] ? 
+                done(undefined, __webpack_require__(id)) : 
+                fn().then(M => done(undefined, M), done)
+              }(require.resolveWeak('${nameNode.value}'), 
+                () => require.ensure([], require => require('${nameNode.value}') 
+                  ${chunkName ? `, ${toString(src, chunkName)}` : ''}),
+                ${toString(src, callback)}))`
 
           path.replaceWith(babylon.parse(replSrc, {
             plugins: [ '*' ]
