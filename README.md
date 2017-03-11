@@ -34,4 +34,4 @@ you need to make sure that you insert content into your html in the following or
 todo 
 --- 
 
-- serverside polyfill
+- non-webpack serverside polyfill 

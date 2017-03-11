@@ -19,7 +19,7 @@ module.exports = function({ types }){
               fn().then(M => done(undefined, M), done)
             }(require.resolveWeak('${nameNode.value}'), 
               () => require.ensure([], require => require('${nameNode.value}') 
-              ${chunkName ? `, ${toString(src, chunkName)}` : ''}),
+                ${chunkName ? `, ${toString(src, chunkName)}` : ''}),
               ${toString(src, callback)}))`
 
           path.replaceWith(babylon.parse(replSrc, {
