@@ -9,7 +9,7 @@ usage
 
 ```jsx
 require.import('./script.js', (err, Module) => {
-  
+  // do stuff with Module
 }, /* optional chunk name */)
 ```
 
